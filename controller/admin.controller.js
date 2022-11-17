@@ -62,7 +62,6 @@ module.exports = {
     try {
       if (joiHelper(validateLogin, req.body, res)?.statusCode)
         return
-      console.log('enters')
       const { email, password } = req.body
 
       const admin = await Admin.findOne({ email })
@@ -88,23 +87,19 @@ module.exports = {
           .json({ message: 'Incorrect Password' })
       }
       const payload = {
-        id: admin.id,
-        name: admin.name,
-        email: admin.email,
-        contact_number: admin.contact_number,
-        avatar: admin.avatar,
-        email: admin.email,
-      }
+        id: admin.id 
+      } 
+      console.log(payload)
       const token = jwtSign(payload)
-
+console.log(token) 
       res
         .status(200)
-        .json({ message: 'Login successfully', result: token })
+        .json({ message: 'Login successfully',  token })
     } catch (err) {
       res
         .status(err?.statusCode || 500)
-        .json({ msg: err.message || 'Something went wrong' })
-    }
+        .json({ message: err.message || 'Something went wrong' })
+    } 
   },
 
   fetchAdmins: async (req, res) => {
@@ -165,6 +160,26 @@ module.exports = {
         message: 'Applications Fetched',
       })
     } catch (error) {
+      res.status(error.status || 500).json({
+        message: error.message || 'Someting went wrong',
+      })
+    }
+  },
+  fetchQueryByCnic: async (req, res) => {
+    try {
+      
+      const { cnic } = req.query
+      const application = await Application.findOne({ cnic:cnic })
+       if (!application)
+        return res.status(404).json({
+          message: 'No Applications Found',
+        })
+      res.status(200).json({
+        application,
+        message: 'Applications Fetched',
+      })
+    } catch (error) {
+      console.log(error)
       res.status(error.status || 500).json({
         message: error.message || 'Someting went wrong',
       })

@@ -10,6 +10,7 @@ const {
   fetchApplicatoins,
   fetchQueryApplicatoins,
   fetchOneApplicatoin,
+  fetchQueryByCnic
 } = require('../controller/admin.controller')
 
 router.post('/register/admin', registerAdmin)
@@ -19,6 +20,7 @@ router.post('/respond/admin', respondAdmin)
 
 router.get('/fetch/applications', fetchApplicatoins)
 router.get('/fetch/application/:id', fetchOneApplicatoin)
+router.get('/fetch/cnic/application', fetchQueryByCnic)
 router.get('/fetch/query/applications', fetchQueryApplicatoins)
 
 module.exports = router

@@ -11,7 +11,7 @@ require('./start/db')(DB_URL)
 require('./start/routes')(app)
 
 const port = PORT || 5000
-require('http')
+require('http') 
   .createServer(app)
   .listen(port, () => {
     console.clear()
