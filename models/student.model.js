@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 const studentSchema = new Schema({
   name: {
@@ -17,6 +17,11 @@ const studentSchema = new Schema({
     minlength: 8,
     required: true,
   },
+  cpassword: {
+    type: String,
+    minlength: 8,
+    required: true,
+  },
 });
 
-module.exports = model('student', studentSchema);
+module.exports = model("student", studentSchema);
