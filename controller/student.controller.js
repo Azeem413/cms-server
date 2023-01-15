@@ -201,7 +201,7 @@ module.exports = {
       const result = await Application.findByIdAndUpdate(id, req.body, {
         new: true,
       });
-      console.log(result);
+      // console.log(result);
       res.json({ result, message: "your form updated sucessfully" });
     } catch (error) {
       res.status(404).json({ message: error.message });
