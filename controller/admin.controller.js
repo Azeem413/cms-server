@@ -16,8 +16,7 @@ const joiHelper = require("../utils/joi-validation");
 module.exports = {
   registerAdmin: async (req, res) => {
     try {
-      const { avatar, password, name, email, contact_number, is_admin } =
-        req.body;
+      const { password, name, email } = req.body;
 
       let admin = await Admin.findOne({ email });
       if (admin) {
@@ -26,17 +25,14 @@ module.exports = {
         });
       }
       //VALIDATE REQUEST BODY
-      const { error } = validateAdmin(req.body);
-      if (error)
-        return res.status(400).json({ message: error.details[0].message });
+      // const { error } = validateAdmin(req.body);
+      // if (error)
+      //   return res.status(400).json({ message: error.details[0].message });
 
       const newAdmin = new Admin({
         name,
         email,
         password: await bcrypt.hash(password, 10),
-        avatar,
-        contact_number,
-        is_admin,
       });
 
       await newAdmin.save();
